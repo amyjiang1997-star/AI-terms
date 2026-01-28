@@ -1,5 +1,5 @@
 
-import { supabase } from '../_lib/supabase.ts';
+import { supabase } from '../_lib/supabase.js';
 
 export default async function handler(req, res) {
     // For CSV download, we might use a query param token for simplicity
