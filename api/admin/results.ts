@@ -1,5 +1,5 @@
 
-import { supabase } from '../_lib/supabase';
+import { supabase } from '../_lib/supabase.ts';
 
 export default async function handler(req, res) {
   const authHeader = req.headers.authorization;
