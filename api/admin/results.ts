@@ -1,7 +1,7 @@
 
-const { supabase } = require('../_lib/supabase');
+import { supabase } from '../_lib/supabase';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const authHeader = req.headers.authorization;
   const adminPassword = process.env.ADMIN_PASSWORD;
 
