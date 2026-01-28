@@ -1,7 +1,7 @@
 
-import { supabase } from '../_lib/supabase.js';
+const { supabase } = require('../_lib/supabase');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // For CSV download, we might use a query param token for simplicity
     const token = req.query.token;
     const adminPassword = process.env.ADMIN_PASSWORD;

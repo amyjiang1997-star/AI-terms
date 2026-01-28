@@ -1,10 +1,12 @@
 
-import { createClient } from '@supabase/supabase-js';
+const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = process.env.SUPABASE_URL || '';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
 
-// Note: In local development, you need to ensure these env vars are set.
-// In Vercel, set them in the Project Settings.
+if (!supabaseUrl) throw new Error('Missing SUPABASE_URL env var');
+if (!supabaseKey) throw new Error('Missing SUPABASE_ANON_KEY (or SUPABASE_KEY) env var');
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+module.exports = { supabase };
