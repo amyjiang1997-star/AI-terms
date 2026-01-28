@@ -1,5 +1,5 @@
 
-import { supabase } from './_lib/supabase';
+import { supabase } from '../api/_lib/supabase';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
