@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import '../index.css';
 
 interface Result {
   id: string;
