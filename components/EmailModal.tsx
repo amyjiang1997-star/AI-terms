@@ -34,7 +34,7 @@ export const EmailModal: React.FC<EmailModalProps> = ({ onSubmit, isLoading }) =
           请填写你的独特昵称
         </h2>
         <p className="text-center text-slate-500 mb-6 text-sm">
-          以便答题中奖后的开奖联系和奖品寄送，如果你超厉害的话！
+          以便中奖后的开奖联系和奖品寄送，如果你超厉害的话！
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
