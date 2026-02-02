@@ -10,7 +10,7 @@ import { playSound } from './audio';
 import { GameState } from './types';
 
 const App: React.FC = () => {
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userNickname, setUserNickname] = useState<string | null>(null);
   const [isVerified, setIsVerified] = useState(false);
   const [sessionStartTime, setSessionStartTime] = useState<number>(0);
   const [isChecking, setIsChecking] = useState(false);
@@ -28,11 +28,12 @@ const App: React.FC = () => {
 
   const currentQuestion = QUESTIONS[gameState.currentQuestionIndex];
 
-  // Email Submit Handler
-  const handleEmailSubmit = async (email: string) => {
+  // Nickname Submit Handler
+  const handleNicknameSubmit = async (nickname: string) => {
     setIsChecking(true);
     try {
-      const res = await fetch(`/api/check?email=${encodeURIComponent(email)}`);
+      // NOTE: Backend expects 'email' param, so we send nickname as email
+      const res = await fetch(`/api/check?email=${encodeURIComponent(nickname)}`);
       const data = await res.json();
       
       if (data.completed) {
@@ -41,7 +42,7 @@ const App: React.FC = () => {
         return;
       }
 
-      setUserEmail(email);
+      setUserNickname(nickname);
       setIsVerified(true);
       setSessionStartTime(Date.now());
     } catch (e) {
@@ -53,18 +54,18 @@ const App: React.FC = () => {
 
   // Submit Results when Trophy is reached
   useEffect(() => {
-    if (gameState.status === 'TROPHY' && userEmail && gameState.endTime) {
+    if (gameState.status === 'TROPHY' && userNickname && gameState.endTime) {
       const duration = gameState.endTime - gameState.startTime;
       fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: userEmail,
+          email: userNickname, // Send nickname as email to match backend API
           duration_ms: duration
         })
       }).catch(err => console.error('Submit failed', err));
     }
-  }, [gameState.status, gameState.endTime, gameState.startTime, userEmail]);
+  }, [gameState.status, gameState.endTime, gameState.startTime, userNickname]);
 
   // Handlers
   const toggleMute = () => {
@@ -183,7 +184,7 @@ const App: React.FC = () => {
   return (
     <Background>
       {!isVerified && (
-        <EmailModal onSubmit={handleEmailSubmit} isLoading={isChecking} />
+        <EmailModal onSubmit={handleNicknameSubmit} isLoading={isChecking} />
       )}
 
       {/* Mute Button */}
